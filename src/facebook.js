@@ -26,41 +26,27 @@ class FacebookLogin extends React.Component {
     reAuthenticate: PropTypes.bool,
     scope: PropTypes.string,
     redirectUri: PropTypes.string,
-    textButton: PropTypes.string,
-    typeButton: PropTypes.string,
     autoLoad: PropTypes.bool,
     disableMobileRedirect: PropTypes.bool,
     isMobile: PropTypes.bool,
-    size: PropTypes.string,
     fields: PropTypes.string,
-    cssClass: PropTypes.string,
     version: PropTypes.string,
-    icon: PropTypes.any,
     language: PropTypes.string,
     onClick: PropTypes.func,
-    containerStyle: PropTypes.object,
-    buttonStyle: PropTypes.object,
-    tag: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
-    component: PropTypes.func
+    component: PropTypes.func.isRequired
   };
 
   static defaultProps = {
-    textButton: 'Login with Facebook',
-    typeButton: 'button',
     redirectUri: typeof window !== 'undefined' ? window.location.href : '/',
     scope: 'public_profile,email',
     xfbml: false,
     cookie: false,
     reAuthenticate: false,
-    size: 'metro',
     fields: 'name',
-    cssClass: 'kep-login-facebook',
     version: '2.3',
     language: 'en_US',
     disableMobileRedirect: false,
     isMobile: getIsMobile(),
-    tag: 'button',
-    component: null
   };
 
   state = {
@@ -182,54 +168,10 @@ class FacebookLogin extends React.Component {
     }
   };
 
-  style() {
-    const defaultCSS = this.constructor.defaultProps.cssClass;
-    if (this.props.cssClass === defaultCSS) {
-      return <style dangerouslySetInnerHTML={{ __html: styles }}></style>;
-    }
-    return false;
-  }
-
-  // [AdGo] 20.11.2016 - coult not get container class to work
-  containerStyle() {
-    const style = { transition: 'opacity 0.5s' };
-    if (this.state.isProcessing || !this.state.isSdkLoaded || this.props.isDisabled) {
-      style.opacity = 0.6;
-    }
-    return Object.assign(style, this.props.containerStyle);
-  }
-
   render() {
-    const { cssClass, size, icon, textButton, typeButton, buttonStyle, component } = this.props;
+    const { component } = this.props;
     
-    if (component) {
-      return <component facebookLogin={this.click} />;
-    }
-    
-    const isIconString = typeof icon === 'string';
-    return (
-      <span style={ this.containerStyle() }>
-        {isIconString && (
-          <link
-            rel="stylesheet"
-            href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
-          />
-        )}
-        <this.props.tag
-          type={typeButton}
-          className={`${cssClass} ${size}`}
-          style={ buttonStyle }
-          onClick={this.click}
-        >
-          {icon && isIconString && (
-            <i className={`fa ${icon}`}></i>
-          )}
-          {icon && !isIconString && icon}
-          {textButton}
-        </this.props.tag>
-        {this.style()}
-      </span>
-    );
+    return <component facebookLogin={this.click} />;
   }
 }
 
