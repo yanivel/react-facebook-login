@@ -168,8 +168,8 @@ class FacebookLogin extends React.Component {
   };
 
   render() {
-    const { component } = this.props;
-    return <component facebookLogin={this.click} />;
+    const { component: Component } = this.props;
+    return <Component facebookLogin={this.click} />;
   }
 }
 
