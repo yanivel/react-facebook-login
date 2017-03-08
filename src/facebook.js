@@ -41,6 +41,7 @@ class FacebookLogin extends React.Component {
     containerStyle: PropTypes.object,
     buttonStyle: PropTypes.object,
     tag: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+    component: PropTypes.func
   };
 
   static defaultProps = {
@@ -59,6 +60,7 @@ class FacebookLogin extends React.Component {
     disableMobileRedirect: false,
     isMobile: getIsMobile(),
     tag: 'button',
+    component: null
   };
 
   state = {
@@ -198,7 +200,12 @@ class FacebookLogin extends React.Component {
   }
 
   render() {
-    const { cssClass, size, icon, textButton, typeButton, buttonStyle } = this.props;
+    const { cssClass, size, icon, textButton, typeButton, buttonStyle, component } = this.props;
+    
+    if (component) {
+      return <component facebookLogin={this.click} />;
+    }
+    
     const isIconString = typeof icon === 'string';
     return (
       <span style={ this.containerStyle() }>
