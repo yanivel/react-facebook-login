@@ -1,6 +1,5 @@
 // @flow
 import React, { PropTypes } from 'react';
-import styles from '../styles/facebook.scss';
 import objectToParams from './objectToParams';
 
 const getIsMobile = () => {
@@ -33,7 +32,7 @@ class FacebookLogin extends React.Component {
     version: PropTypes.string,
     language: PropTypes.string,
     onClick: PropTypes.func,
-    component: PropTypes.func.isRequired
+    component: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -170,7 +169,6 @@ class FacebookLogin extends React.Component {
 
   render() {
     const { component } = this.props;
-    
     return <component facebookLogin={this.click} />;
   }
 }
